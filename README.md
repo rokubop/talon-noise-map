@@ -45,7 +45,61 @@ actions.user.noise_map_enable()   # Start routing noises through your map
 actions.user.noise_map_disable()  # Restore default pop/hiss behavior
 ```
 
-Supports the full [input_map](https://github.com/rokubop/talon-input-map/) feature set: combos (`"pop pop"`), throttle (`"hiss:th_90"`), debounce, conditions, modifiers, modes, and more.
+### Examples
+
+#### Pop combos
+
+```python
+noise_map = {
+    "pop":     ("click", lambda: actions.mouse_click(0)),        # single pop
+    "pop pop": ("right click", lambda: actions.mouse_click(1)),  # double pop
+}
+```
+
+Single pop is delayed by the combo window (~300ms) while waiting to see if a second pop follows. Use `:now` to execute immediately and still detect the combo — useful when the combo builds on the first action:
+
+```python
+noise_map = {
+    "pop:now": ("aim", lambda: actions.user.aim_start()),    # fires immediately
+    "pop pop": ("fire", lambda: actions.user.fire()),         # fires while already aiming
+}
+```
+
+#### Hiss duration
+
+Trigger different actions based on how long hiss is held:
+
+```python
+noise_map = {
+    "hiss":               ("", lambda: None),  # start event (required)
+    "hiss_stop:dur<300":  ("tap", lambda: actions.user.dodge()),      # brief hiss
+    "hiss_stop:dur>=300": ("hold", lambda: actions.user.charge()),    # sustained hiss
+}
+```
+
+#### Hiss throttle
+
+Rate-limit a continuous action while hissing:
+
+```python
+noise_map = {
+    "hiss:th_90":  ("scroll", lambda: actions.user.scroll_down()),  # max once per 90ms
+    "hiss_stop":   ("", lambda: None),
+}
+```
+
+#### Hiss debounce
+
+Prevent accidental hiss triggers (e.g. from speech containing "ss" sounds):
+
+```python
+noise_map = {
+    "hiss:db_150":  ("run", lambda: actions.user.start_running()),  # only fires after 150ms of sustained hiss
+    "hiss_stop":    ("", lambda: actions.user.stop_running()),
+}
+```
+
+See [talon-input-map](https://github.com/rokubop/talon-input-map/) for the full feature set including conditions, modifiers, and more.
 
 ### Custom pop/hiss handlers
 
