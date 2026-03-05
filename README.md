@@ -1,6 +1,6 @@
 # Noise Map
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Version](https://img.shields.io/badge/version-0.5.0-blue)
 ![Status](https://img.shields.io/badge/status-experimental-orange)
 
 Map Talon's built-in noises (pop/hiss) using the same [input_map](https://github.com/rokubop/talon-input-map/) API — with combos, modes, throttle, debounce, and more.
@@ -134,7 +134,7 @@ def _override_community_noise_handlers():
 
 ### Dependencies
 
-- [**talon-input-map**](https://github.com/rokubop/talon-input-map/) (v0.8.0+)
+- [**talon-input-map**](https://github.com/rokubop/talon-input-map/) (v1.0.0+)
 
 ### Install
 
@@ -151,7 +151,7 @@ cd ~/AppData/Roaming/talon/user
 git clone https://github.com/rokubop/talon-input-map/
 
 # This repo
-git clone <github_url>  # Add github URL to manifest.json
+git clone https://github.com/rokubop/talon-noise-map
 ```
 
 > **Note**: Review code from unfamiliar sources before installing.

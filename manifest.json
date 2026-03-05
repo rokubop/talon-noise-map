@@ -1,26 +1,24 @@
 {
   "name": "talon-noise-map",
   "title": "Noise Map",
-  "description": "Add a description of your Talon package here.",
-  "version": "0.1.0",
+  "description": "Advanced mapping for your default Talon pop and hiss noises.",
+  "version": "0.5.0",
   "status": "experimental",
   "namespace": "user.noise_map",
-  "github": "",
+  "github": "https://github.com/rokubop/talon-noise-map",
   "preview": "",
-  "author": "",
+  "author": "Rokubop",
   "tags": [],
   "dependencies": {
     "talon-input-map": {
-      "min_version": "0.8.0",
+      "min_version": "1.0.0",
       "namespace": "user.input_map",
       "github": "https://github.com/rokubop/talon-input-map/"
     }
   },
   "devDependencies": {},
   "contributes": {
-    "tags": [
-      "user.noise_map_active"
-    ],
+    "tags": ["user.noise_map_active"],
     "actions": [
       "user.noise_map",
       "user.noise_map_disable",
