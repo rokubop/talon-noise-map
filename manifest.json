@@ -1,7 +1,7 @@
 {
   "name": "talon-noise-map",
   "title": "Noise Map",
-  "description": "Advanced mapping for your default Talon pop and hiss noises.",
+  "description": "Advanced remapping for your default Talon pop and hiss noises.",
   "version": "0.5.0",
   "status": "experimental",
   "namespace": "user.noise_map",

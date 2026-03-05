@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/badge/version-0.5.0-blue)
 ![Status](https://img.shields.io/badge/status-experimental-orange)
 
-Map Talon's built-in noises (pop/hiss) using the same [input_map](https://github.com/rokubop/talon-input-map/) API — with combos, modes, throttle, debounce, and more.
+Advanced remapping for your default Talon pop and hiss noises, using [input_map](https://github.com/rokubop/talon-input-map/) - - with combos, modes, throttle, debounce, and more.
 
 ## Usage
 
@@ -56,7 +56,7 @@ noise_map = {
 }
 ```
 
-Single pop is delayed by the combo window (~300ms) while waiting to see if a second pop follows. Use `:now` to execute immediately and still detect the combo — useful when the combo builds on the first action:
+Single pop is delayed by the combo window (~300ms) while waiting to see if a second pop follows. Use `:now` to execute immediately and still detect the combo - useful when the combo builds on the first action:
 
 ```python
 noise_map = {
