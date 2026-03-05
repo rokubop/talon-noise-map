@@ -45,6 +45,13 @@ actions.user.noise_map_enable()   # Start routing noises through your map
 actions.user.noise_map_disable()  # Restore default pop/hiss behavior
 ```
 
+### 3. Set mode (optional)
+
+```python
+actions.user.noise_map_mode_set("combat")
+actions.user.noise_map_mode_set("default")
+```
+
 ### Examples
 
 #### Pop combos
