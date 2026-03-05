@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/badge/version-0.5.0-blue)
 ![Status](https://img.shields.io/badge/status-experimental-orange)
 
-Advanced remapping for your default Talon pop and hiss noises, using [input_map](https://github.com/rokubop/talon-input-map/) - - with combos, modes, throttle, debounce, and more.
+Advanced remapping for your default Talon pop and hiss noises, using [input_map](https://github.com/rokubop/talon-input-map/) - with combos, modes, throttle, debounce, and more.
 
 ## Usage
 
@@ -41,11 +41,11 @@ class Actions:
 ### 2. Enable/disable
 
 ```python
-actions.user.noise_map_enable()   # Start routing noises through your map
-actions.user.noise_map_disable()  # Restore default pop/hiss behavior
+actions.user.noise_map_enable()
+actions.user.noise_map_disable()
 ```
 
-### 3. Set mode (optional)
+### 3. Set mode
 
 ```python
 actions.user.noise_map_mode_set("combat")
