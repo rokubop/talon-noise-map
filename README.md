@@ -51,7 +51,7 @@ actions.user.noise_map_disable()  # Restore default pop/hiss behavior
 
 ```python
 noise_map = {
-    "pop":     ("click", lambda: actions.mouse_click(0)),        # single pop
+    "pop":     ("click", lambda: actions.mouse_click(0)),        # single pop (delayed by combo window)
     "pop pop": ("right click", lambda: actions.mouse_click(1)),  # double pop
 }
 ```
@@ -61,7 +61,18 @@ Single pop is delayed by the combo window (~300ms) while waiting to see if a sec
 ```python
 noise_map = {
     "pop:now": ("aim", lambda: actions.user.aim_start()),    # fires immediately
-    "pop pop": ("fire", lambda: actions.user.fire()),         # fires while already aiming
+    "pop pop": ("fire", lambda: actions.user.fire()),        # fires while already aiming
+}
+```
+
+#### After
+Continued pops with eventual after conditions:
+
+```python
+noise_map = {
+    "pop": ("hold jump", lambda: actions.user.jump_hold()),  # fires on first pop
+    # Can continue pop pop pop...
+    "pop:after_100": ("release jump", lambda: actions.user.jump_release()),  # fires 100ms after a pop, if no second pop occurs
 }
 ```
 
@@ -88,7 +99,7 @@ noise_map = {
 }
 ```
 
-#### Hiss debounce
+#### Hiss debounce start
 
 Prevent accidental hiss triggers (e.g. from speech containing "ss" sounds):
 
@@ -99,19 +110,23 @@ noise_map = {
 }
 ```
 
+#### Hiss debounce stop
+
+Prevent accidental hiss triggers stops.
+
+```python
+noise_map = {
+    "hiss":  ("jump", lambda: actions.user.hold_jump()),
+    "hiss_stop:db_150":  ("", lambda: actions.user.jump_release()),
+}
+```
+
 See [talon-input-map](https://github.com/rokubop/talon-input-map/) for the full feature set including conditions, modifiers, and more.
 
 ### Custom pop/hiss handlers
 
-When enabled, noise_map automatically suppresses the community default pop/hiss actions (`noise_trigger_pop`, `noise_trigger_hiss`, `on_pop`) so they don't conflict. If you have additional custom pop/hiss actions, add them to `_override_community_noise_handlers` in `noise_map.py`:
+When enabled, `noise_map` automatically suppresses Talon's default pop/hiss behavior, and if applicable also suppresses `parrot(pop)`, `parrot(hiss)`, `noise(pop)`, `noise(hiss)`.
 
-```python
-def _override_community_noise_handlers():
-    ...
-    # Add your custom action overrides here
-    if registry.actions.get("user.my_custom_pop_action"):
-        ctx_override.action("user.my_custom_pop_action")(lambda: actions.skip())
-```
 
 ## Actions
 
@@ -153,5 +168,3 @@ git clone https://github.com/rokubop/talon-input-map/
 # This repo
 git clone https://github.com/rokubop/talon-noise-map
 ```
-
-> **Note**: Review code from unfamiliar sources before installing.
