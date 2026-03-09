@@ -1,9 +1,35 @@
 # Talon Noise Map
 
-![Version](https://img.shields.io/badge/version-0.5.0-blue)
+![Version](https://img.shields.io/badge/version-0.5.1-blue)
 ![Status](https://img.shields.io/badge/status-experimental-orange)
 
 Advanced remapping for your default Talon pop and hiss noises, using [talon-input-map](https://github.com/rokubop/talon-input-map/) - with combos, modes, throttle, debounce, and more.
+
+![preview.svg](preview.svg)
+
+## Installation
+
+### Dependencies
+
+- [**talon-input-map**](https://github.com/rokubop/talon-input-map/) (v1.0.0+)
+
+### Install
+
+Clone the dependencies and this repo into your [Talon](https://talonvoice.com/) user directory:
+
+```sh
+# Mac/Linux
+cd ~/.talon/user
+
+# Windows
+cd ~/AppData/Roaming/talon/user
+
+# Dependencies
+git clone https://github.com/rokubop/talon-input-map/
+
+# This repo
+git clone https://github.com/rokubop/talon-noise-map
+```
 
 ## Usage
 
@@ -151,27 +177,3 @@ When enabled, `noise_map` automatically suppresses Talon's default pop/hiss beha
 | `noise_map_reset()` | Re-register with fresh map |
 | `noise_map_event_register(cb)` | Register event callback |
 | `noise_map_event_unregister(cb)` | Unregister event callback |
-
-## Installation
-
-### Dependencies
-
-- [**talon-input-map**](https://github.com/rokubop/talon-input-map/) (v1.0.0+)
-
-### Install
-
-Clone the dependencies and this repo into your [Talon](https://talonvoice.com/) user directory:
-
-```sh
-# Mac/Linux
-cd ~/.talon/user
-
-# Windows
-cd ~/AppData/Roaming/talon/user
-
-# Dependencies
-git clone https://github.com/rokubop/talon-input-map/
-
-# This repo
-git clone https://github.com/rokubop/talon-noise-map
-```

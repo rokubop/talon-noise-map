@@ -2,11 +2,11 @@
   "name": "talon-noise-map",
   "title": "Talon Noise Map",
   "description": "Advanced remapping for your default Talon pop and hiss noises, using talon-input-map",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "status": "experimental",
   "namespace": "user.noise_map",
   "github": "https://github.com/rokubop/talon-noise-map",
-  "preview": "",
+  "preview": "https://raw.githubusercontent.com/rokubop/talon-noise-map/main/preview.svg",
   "author": "Rokubop",
   "tags": [],
   "dependencies": {
@@ -18,7 +18,9 @@
   },
   "devDependencies": {},
   "contributes": {
-    "tags": ["user.noise_map_active"],
+    "tags": [
+      "user.noise_map_active"
+    ],
     "actions": [
       "user.noise_map",
       "user.noise_map_disable",
@@ -52,7 +54,7 @@
   },
   "validateDependencies": true,
   "_generator": "talon-pack",
-  "_generatorVersion": "3.0.0",
+  "_generatorVersion": "3.2.5",
   "_generatorRequiresVersionAction": true,
   "_generatorStrictNamespace": true,
   "_generatorFrozenFields": []
