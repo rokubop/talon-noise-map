@@ -11,12 +11,11 @@
   "tags": [],
   "dependencies": {
     "talon-input-map": {
-      "min_version": "1.0.0",
+      "min_version": "1.0.1",
       "namespace": "user.input_map",
       "github": "https://github.com/rokubop/talon-input-map/"
     }
   },
-  "devDependencies": {},
   "contributes": {
     "tags": [
       "user.noise_map_active"
@@ -54,7 +53,7 @@
   },
   "validateDependencies": true,
   "_generator": "talon-pack",
-  "_generatorVersion": "3.2.5",
+  "_generatorVersion": "3.3.0",
   "_generatorRequiresVersionAction": true,
   "_generatorStrictNamespace": true,
   "_generatorFrozenFields": []

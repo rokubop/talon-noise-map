@@ -11,7 +11,7 @@ Advanced remapping for your default Talon pop and hiss noises, using [talon-inpu
 
 ### Dependencies
 
-- [**talon-input-map**](https://github.com/rokubop/talon-input-map/) (v1.0.0+)
+- [**talon-input-map**](https://github.com/rokubop/talon-input-map/) (v1.0.1+)
 
 ### Install
 
