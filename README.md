@@ -177,3 +177,6 @@ When enabled, `noise_map` automatically suppresses Talon's default pop/hiss beha
 | `noise_map_reset()` | Re-register with fresh map |
 | `noise_map_event_register(cb)` | Register event callback |
 | `noise_map_event_unregister(cb)` | Unregister event callback |
+
+## More Talon packages
+Check out my other Talon packages for UI, mouse control, input mapping, and more at [talon-hub-roku](https://github.com/rokubop/talon-hub-roku).
