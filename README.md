@@ -1,6 +1,6 @@
 # Talon Noise Map
 
-![Version](https://img.shields.io/badge/version-0.5.1-blue)
+![Version](https://img.shields.io/badge/version-0.5.2-blue)
 ![Status](https://img.shields.io/badge/status-experimental-orange)
 
 Advanced remapping for your default Talon pop and hiss noises, using [talon-input-map](https://github.com/rokubop/talon-input-map/) - with combos, modes, throttle, debounce, and more.
@@ -11,7 +11,7 @@ Advanced remapping for your default Talon pop and hiss noises, using [talon-inpu
 
 ### Dependencies
 
-- [**talon-input-map**](https://github.com/rokubop/talon-input-map/) (v1.0.1+)
+- [**talon-input-map**](https://github.com/rokubop/talon-input-map/) (v1.1.1+)
 
 ### Install
 
