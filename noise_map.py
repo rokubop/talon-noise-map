@@ -144,7 +144,7 @@ def _override_pop_hiss_actions():
         return
     _overrides_applied = True
 
-    skip_prefixes = ["user.noise_map"]
+    skip_prefixes = ["user.noise_map", "user.input_map"]
     bound_actions = _find_bound_actions(
         getattr(registry, "parrot_noises", {}),
         getattr(registry, "noises", {}),
