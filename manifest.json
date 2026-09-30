@@ -33,6 +33,8 @@
       "user.noise_map_mode_revert",
       "user.noise_map_mode_set",
       "user.noise_map_reset",
+      "user.noise_map_mode_phrase_set",
+      "user.noise_map_mode_phrase_clear",
       "user.noise_map_version"
     ]
   },
