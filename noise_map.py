@@ -1,5 +1,6 @@
 import inspect
 import re
+from dataclasses import dataclass
 
 from talon import Module, Context, actions, app, noise, registry
 
@@ -16,12 +17,43 @@ _pop_registered = False
 _hiss_registered = False
 _saved_noise_callbacks = {}
 
+# Phrase override state
+_phrase_overrides = {}  # {"pop": "jump", "hiss": "forward"}
+
+# Local event subscribers for phrase events
+_event_subscribers = []
+
+
+@dataclass
+class _PhraseEvent:
+    type: str
+    mode: str
+    input: str = ""
+    label: str = ""
+
+
+def _fire_event(event):
+    """Fire an event to all registered noise_map event subscribers."""
+    for cb in _event_subscribers:
+        cb(event)
+
 
 def _noise_pop(_):
+    if "pop" in _phrase_overrides:
+        phrase = _phrase_overrides["pop"]
+        actions.mimic(phrase)
+        _fire_event(_PhraseEvent(type="input", mode="phrase", input="pop", label=phrase))
+        return
     actions.user.input_map_channel_handle(CHANNEL, "pop")
 
 
 def _noise_hiss(active):
+    if "hiss" in _phrase_overrides:
+        if active:
+            phrase = _phrase_overrides["hiss"]
+            actions.mimic(phrase)
+            _fire_event(_PhraseEvent(type="input", mode="phrase", input="hiss", label=phrase))
+        return
     if active:
         actions.user.input_map_channel_handle(CHANNEL, "hiss")
     else:
@@ -77,6 +109,7 @@ def _disable():
         _hiss_registered = False
     _restore_noise_callbacks()
     actions.user.input_map_channel_unregister(CHANNEL)
+    _phrase_overrides.clear()
     ctx.tags = []
 
 
@@ -144,7 +177,7 @@ def _override_pop_hiss_actions():
         return
     _overrides_applied = True
 
-    skip_prefixes = ["user.noise_map"]
+    skip_prefixes = ["user.noise_map", "user.input_map"]
     bound_actions = _find_bound_actions(
         getattr(registry, "parrot_noises", {}),
         getattr(registry, "noises", {}),
@@ -194,6 +227,8 @@ class Actions:
 
     def noise_map_mode_get() -> str:
         """Get the current noise_map mode"""
+        if _phrase_overrides:
+            return "phrase"
         return actions.user.input_map_channel_mode_get(CHANNEL)
 
     def noise_map_mode_cycle() -> str:
@@ -210,7 +245,11 @@ class Actions:
 
     def noise_map_get_legend(mode: str = None) -> dict:
         """Get the legend for the noise_map"""
-        return actions.user.input_map_channel_get_legend(CHANNEL, mode)
+        legend = actions.user.input_map_channel_get_legend(CHANNEL, mode)
+        if _phrase_overrides and mode is None:
+            for input_name, phrase in _phrase_overrides.items():
+                legend[input_name] = phrase
+        return legend
 
     def noise_map_reset():
         """Reset the noise_map by re-registering with a fresh map"""
@@ -221,7 +260,34 @@ class Actions:
     def noise_map_event_register(cb: callable):
         """Register an event callback for noise_map"""
         actions.user.input_map_channel_event_register(CHANNEL, cb)
+        _event_subscribers.append(cb)
 
     def noise_map_event_unregister(cb: callable):
         """Unregister an event callback for noise_map"""
         actions.user.input_map_channel_event_unregister(CHANNEL, cb)
+        try:
+            _event_subscribers.remove(cb)
+        except ValueError:
+            for sub in _event_subscribers:
+                if sub.__name__ == cb.__name__:
+                    _event_subscribers.remove(sub)
+                    break
+
+    def noise_map_mode_phrase_set(input_name: str, phrase: str):
+        """Set a phrase override for an input (pop or hiss), entering phrase mode.
+        When the noise fires, it mimics the phrase instead of the configured action."""
+        _phrase_overrides[input_name] = phrase
+        _fire_event(_PhraseEvent(type="mode_change", mode="phrase"))
+
+    def noise_map_mode_phrase_clear(input_name: str = ""):
+        """Clear phrase override for an input, or all if empty.
+        Reverts to the base noise_map mode when no overrides remain."""
+        if input_name:
+            _phrase_overrides.pop(input_name, None)
+        else:
+            _phrase_overrides.clear()
+        if _phrase_overrides:
+            _fire_event(_PhraseEvent(type="mode_change", mode="phrase"))
+        else:
+            current_mode = actions.user.input_map_channel_mode_get(CHANNEL)
+            _fire_event(_PhraseEvent(type="mode_change", mode=current_mode))
